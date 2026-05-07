@@ -58,6 +58,27 @@
   h1 { color: var(--text); font-size: 20px; margin-bottom: 10px; }
   p { color: var(--muted); font-size: 14px; }
   a { color: var(--sky); }
+  .footer {
+    text-align: center;
+    font-size: 11px;
+    color: rgba(125,184,212,0.4);
+    padding-bottom: 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-top: 20px;
+  }
+  .credit { font-size: 11px; color: var(--muted); }
+  .credit strong { color: var(--sky); }
+  .warning {
+    background: rgba(251,191,36,0.12);
+    border: 1px solid rgba(251,191,36,0.3);
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 10px;
+    color: #fcd34d;
+    font-weight: 500;
+  }
 </style>
 </head>
 <body onLoad="startClock()">
@@ -66,6 +87,16 @@
   <h1>Mengalihkan...</h1>
   <p>Anda telah terhubung.<br>Jika tidak, <a href="./login">klik di sini</a></p>
 </div>
+
+<div class="footer">
+  <div class="credit">
+    Template by <strong>Yanuar Lukman Arif</strong> &bull; 7 Mei 2026
+  </div>
+  <div class="warning">
+    ⚠️ Template ini tidak gratis! Jika ingin mengubah, wajib melapor terlebih dahulu.
+  </div>
+</div>
+
 <script type="text/javascript">
 	document.getElementById('title').innerHTML = window.location.hostname + " > redirect";
 </script>
