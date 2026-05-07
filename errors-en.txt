@@ -1,0 +1,11 @@
+# Error Messages (English)
+
+user-not-found=User not found
+invalid-password=Invalid password
+user-disabled=User is disabled
+user-expired=User expired
+user-no-hours=No hours left
+user-no-bytes=No quota left
+simultaneous-users=Account is being used elsewhere
+session-expired=Session expired
+system-busy=Server busy, please try again later

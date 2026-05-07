@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title id="title"></title>
+<meta http-equiv="refresh" content="2; url=$(link-redirect)">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta name="theme-color" content="#0ea5e9" />
+<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;"/>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<script language="JavaScript">
+
+    function startClock() {
+        $(if popup == 'true')
+        open('$(link-status)', 'hotspot_status', 'toolbar=0,location=0,directories=0,status=0,menubars=0,resizable=1,width=290,height=200');
+	$(endif)
+	location.href = './success.html';
+    }
+
+</script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --sky: #0ea5e9;
+    --navy: #0c1a2e;
+    --navy-card: #1a2f4a;
+    --text: #e0f2fe;
+    --muted: #7db8d4;
+    --font: 'Plus Jakarta Sans', sans-serif;
+  }
+  body {
+    font-family: var(--font);
+    background: var(--navy);
+    min-height: 100dvh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  .card {
+    background: var(--navy-card);
+    border-radius: 16px;
+    padding: 40px;
+    text-align: center;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.3);
+  }
+  .spinner {
+    width: 50px;
+    height: 50px;
+    border: 4px solid rgba(14,165,233,0.2);
+    border-top-color: var(--sky);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 20px;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  h1 { color: var(--text); font-size: 20px; margin-bottom: 10px; }
+  p { color: var(--muted); font-size: 14px; }
+  a { color: var(--sky); }
+</style>
+</head>
+<body onLoad="startClock()">
+<div class="card">
+  <div class="spinner"></div>
+  <h1>Mengalihkan...</h1>
+  <p>Anda telah terhubung.<br>Jika tidak, <a href="./login">klik di sini</a></p>
+</div>
+<script type="text/javascript">
+	document.getElementById('title').innerHTML = window.location.hostname + " > redirect";
+</script>
+</body>
+</html>

@@ -1,0 +1,602 @@
+<!doctype html>
+<html>
+  <head>
+    <title id="title"></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="theme-color" content="#0ea5e9" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <script type="text/javascript" src="md5.js"></script>
+
+    <style>
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+      :root {
+        --sky: #0ea5e9;
+        --sky-dark: #0284c7;
+        --sky-light: #bae6fd;
+        --navy: #0c1a2e;
+        --navy-mid: #132238;
+        --navy-card: #1a2f4a;
+        --accent: #38bdf8;
+        --gold: #fbbf24;
+        --text: #e0f2fe;
+        --muted: #7db8d4;
+        --radius: 16px;
+        --font: 'Plus Jakarta Sans', sans-serif;
+      }
+
+      body {
+        font-family: var(--font);
+        background: var(--navy);
+        min-height: 100dvh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        overflow-x: hidden;
+        position: relative;
+      }
+
+      body::before {
+        content: '';
+        position: fixed;
+        inset: 0;
+        background:
+          radial-gradient(ellipse 80% 60% at 10% 10%, rgba(14,165,233,0.18) 0%, transparent 60%),
+          radial-gradient(ellipse 60% 50% at 90% 90%, rgba(56,189,248,0.12) 0%, transparent 60%),
+          radial-gradient(ellipse 40% 40% at 50% 50%, rgba(12,26,46,0.95) 0%, transparent 100%);
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      body::after {
+        content: '';
+        position: fixed;
+        inset: 0;
+        background-image:
+          radial-gradient(circle, rgba(14,165,233,0.15) 1px, transparent 1px);
+        background-size: 40px 40px;
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      .wrapper {
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        max-width: 420px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        animation: fadeUp 0.5s ease both;
+      }
+
+      @keyframes fadeUp {
+        from { opacity: 0; transform: translateY(24px); }
+        to   { opacity: 1; transform: translateY(0); }
+      }
+
+      .card-brand {
+        background: linear-gradient(135deg, var(--sky-dark) 0%, var(--sky) 100%);
+        border-radius: var(--radius);
+        padding: 28px 24px 22px;
+        text-align: center;
+        box-shadow: 0 8px 32px rgba(14,165,233,0.3), 0 0 0 1px rgba(255,255,255,0.08);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .card-brand::before {
+        content: '';
+        position: absolute;
+        top: -40px; right: -40px;
+        width: 160px; height: 160px;
+        border-radius: 50%;
+        background: rgba(255,255,255,0.08);
+      }
+
+      .card-brand::after {
+        content: '';
+        position: absolute;
+        bottom: -30px; left: -20px;
+        width: 100px; height: 100px;
+        border-radius: 50%;
+        background: rgba(255,255,255,0.06);
+      }
+
+      .wifi-icon {
+        font-size: 36px;
+        margin-bottom: 6px;
+        filter: drop-shadow(0 2px 8px rgba(0,0,0,0.2));
+      }
+
+      .brand-name {
+        font-size: 22px;
+        font-weight: 800;
+        color: #fff;
+        letter-spacing: -0.3px;
+        text-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      }
+
+      .brand-sub {
+        font-size: 12px;
+        font-weight: 500;
+        color: rgba(255,255,255,0.75);
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        margin-top: 2px;
+      }
+
+      .card-login {
+        background: var(--navy-card);
+        border-radius: var(--radius);
+        padding: 24px;
+        box-shadow: 0 4px 24px rgba(0,0,0,0.3), 0 0 0 1px rgba(255,255,255,0.06);
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+
+      .mode-toggle {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+      }
+
+      .mode-btn {
+        background: rgba(255,255,255,0.05);
+        border: 1.5px solid rgba(255,255,255,0.08);
+        border-radius: 10px;
+        color: var(--muted);
+        font-family: var(--font);
+        font-size: 13px;
+        font-weight: 600;
+        padding: 10px 12px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        transition: all 0.2s;
+      }
+
+      .mode-btn.active,
+      .mode-btn:hover {
+        background: rgba(14,165,233,0.15);
+        border-color: var(--sky);
+        color: var(--accent);
+      }
+
+      .mode-btn span { font-size: 16px; }
+
+      .info-box {
+        background: rgba(14,165,233,0.08);
+        border: 1px solid rgba(14,165,233,0.2);
+        border-radius: 10px;
+        padding: 10px 14px;
+        font-size: 13px;
+        color: var(--sky-light);
+        text-align: center;
+        line-height: 1.4;
+        min-height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .field { display: flex; flex-direction: column; gap: 5px; }
+
+      .field label {
+        font-size: 11px;
+        font-weight: 700;
+        color: var(--muted);
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        padding-left: 2px;
+      }
+
+      .field input {
+        background: rgba(255,255,255,0.05);
+        border: 1.5px solid rgba(255,255,255,0.1);
+        border-radius: 10px;
+        color: var(--text);
+        font-family: var(--font);
+        font-size: 15px;
+        font-weight: 500;
+        padding: 12px 16px;
+        width: 100%;
+        outline: none;
+        transition: border-color 0.2s, background 0.2s;
+      }
+
+      .field input::placeholder { color: rgba(125,184,212,0.5); }
+
+      .field input:focus {
+        border-color: var(--sky);
+        background: rgba(14,165,233,0.08);
+      }
+
+      .btn-login {
+        background: linear-gradient(135deg, var(--sky-dark) 0%, var(--sky) 100%);
+        border: none;
+        border-radius: 12px;
+        color: #fff;
+        font-family: var(--font);
+        font-size: 15px;
+        font-weight: 700;
+        padding: 14px;
+        width: 100%;
+        cursor: pointer;
+        letter-spacing: 0.3px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        box-shadow: 0 4px 20px rgba(14,165,233,0.35);
+        transition: transform 0.15s, box-shadow 0.15s, opacity 0.15s;
+      }
+
+      .btn-login:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 6px 28px rgba(14,165,233,0.45);
+      }
+
+      .btn-login:active {
+        transform: translateY(0);
+        opacity: 0.9;
+      }
+
+      .btn-login svg { width: 18px; height: 18px; }
+
+      .trial-link {
+        text-align: center;
+        font-size: 13px;
+        color: var(--muted);
+      }
+
+      .trial-link a {
+        color: var(--gold);
+        font-weight: 600;
+        text-decoration: none;
+        border-bottom: 1px dashed rgba(251,191,36,0.4);
+        transition: color 0.2s;
+      }
+
+      .trial-link a:hover { color: #fcd34d; }
+
+      .notice {
+        background: rgba(239,68,68,0.12);
+        border: 1px solid rgba(239,68,68,0.3);
+        border-radius: 10px;
+        color: #fca5a5;
+        font-size: 13px;
+        font-weight: 500;
+        padding: 10px 14px;
+        text-align: center;
+      }
+
+      .card-pricing {
+        background: var(--navy-card);
+        border-radius: var(--radius);
+        overflow: hidden;
+        box-shadow: 0 4px 24px rgba(0,0,0,0.3), 0 0 0 1px rgba(255,255,255,0.06);
+      }
+
+      .pricing-header {
+        background: linear-gradient(135deg, #132238 0%, #1a2f4a 100%);
+        padding: 16px 20px;
+        border-bottom: 1px solid rgba(255,255,255,0.06);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .pricing-header-icon {
+        width: 32px; height: 32px;
+        background: rgba(14,165,233,0.15);
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 16px;
+      }
+
+      .pricing-title {
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--text);
+      }
+
+      .pricing-subtitle {
+        font-size: 11px;
+        color: var(--muted);
+        font-weight: 500;
+        margin-top: 1px;
+      }
+
+      .pricing-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1px;
+        background: rgba(255,255,255,0.05);
+      }
+
+      .pricing-item {
+        background: var(--navy-card);
+        padding: 16px 18px;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+
+      .pricing-item:hover { background: rgba(14,165,233,0.06); }
+
+      .pkg-name {
+        font-size: 11px;
+        font-weight: 700;
+        color: var(--sky);
+        letter-spacing: 1px;
+        text-transform: uppercase;
+      }
+
+      .pkg-duration {
+        font-size: 20px;
+        font-weight: 800;
+        color: var(--text);
+        line-height: 1.1;
+      }
+
+      .pkg-unit {
+        font-size: 11px;
+        color: var(--muted);
+        font-weight: 500;
+      }
+
+      .pkg-price {
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--gold);
+        margin-top: 6px;
+        display: inline-flex;
+        align-items: center;
+        gap: 3px;
+      }
+
+      .card-info {
+        background: var(--navy-card);
+        border-radius: var(--radius);
+        padding: 16px 20px;
+        box-shadow: 0 4px 24px rgba(0,0,0,0.3), 0 0 0 1px rgba(255,255,255,0.06);
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .info-row {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        font-size: 13px;
+        color: var(--muted);
+        line-height: 1.45;
+      }
+
+      .info-row-icon {
+        font-size: 16px;
+        flex-shrink: 0;
+        margin-top: 1px;
+      }
+
+      .info-row strong { color: var(--text); font-weight: 600; }
+
+      .info-row a {
+        color: #4ade80;
+        font-weight: 600;
+        text-decoration: none;
+      }
+
+      .info-row a:hover { text-decoration: underline; }
+
+      .footer {
+        text-align: center;
+        font-size: 11px;
+        color: rgba(125,184,212,0.4);
+        padding-bottom: 4px;
+        line-height: 1.6;
+      }
+
+      .footer a {
+        color: rgba(125,184,212,0.6);
+        text-decoration: underline;
+      }
+
+      @media (max-width: 380px) {
+        .pkg-duration { font-size: 17px; }
+        .card-login { padding: 18px; }
+      }
+    </style>
+  </head>
+
+  <body>
+
+    $(if chap-id)
+    <form name="sendin" action="$(link-login-only)" method="post">
+      <input type="hidden" name="username" />
+      <input type="hidden" name="password" />
+      <input type="hidden" name="dst" value="$(link-orig)" />
+      <input type="hidden" name="popup" value="true" />
+    </form>
+    <script type="text/javascript">
+      function doLogin() {
+        document.sendin.username.value = document.login.username.value;
+        document.sendin.password.value = hexMD5('$(chap-id)' + document.login.password.value + '$(chap-challenge)');
+        document.sendin.submit();
+        return false;
+      }
+    </script>
+    $(endif)
+
+    <div class="wrapper">
+
+      <div class="card-brand">
+        <div class="wifi-icon">📶</div>
+        <div class="brand-name">ARIF CELL HOTSPOT</div>
+        <div class="brand-sub">Internet WiFi 30 Mbps Unlimited</div>
+      </div>
+
+      <div class="card-login">
+        <div class="mode-toggle">
+          <button id="btnvrc" class="mode-btn active" onclick="voucher();">
+            <span>🎟️</span> Voucher
+          </button>
+          <button id="btnmem" class="mode-btn" onclick="member();">
+            <span>👤</span> Member
+          </button>
+        </div>
+
+        <div class="info-box" id="infologin">Masukkan Kode Voucher kemudian klik login.</div>
+
+        <form
+          autocomplete="off"
+          name="login"
+          action="$(link-login-only)"
+          method="post"
+          $(if chap-id) onSubmit="return doLogin()" $(endif)
+        >
+          <input type="hidden" name="dst" value="$(link-orig)" />
+          <input type="hidden" name="popup" value="true" />
+
+          <div style="display:flex; flex-direction:column; gap:12px;">
+            <div class="field">
+              <label id="lbl-username">Kode Voucher</label>
+              <input class="username" name="username" type="text" value="$(username)" placeholder="Masukkan kode voucher" />
+            </div>
+
+            <div class="field" id="field-password" style="display:none;">
+              <label>Password</label>
+              <input class="password" name="password" placeholder="Masukkan password" type="hidden" />
+            </div>
+
+            <button class="btn-login" type="submit">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/>
+                <polyline points="10 17 15 12 10 7"/>
+                <line x1="15" y1="12" x2="3" y2="12"/>
+              </svg>
+              Login
+            </button>
+          </div>
+        </form>
+
+        $(if trial == 'yes')
+        <div class="trial-link">
+          Ingin coba gratis? <a href="$(link-login-only)?dst=$(link-orig-esc)&amp;username=T-$(mac-esc)">Klik di sini</a>
+        </div>
+        $(endif)
+
+        $(if error)
+        <div class="notice">⚠️ $(error)</div>
+        $(endif)
+      </div>
+
+      <div class="card-pricing">
+        <div class="pricing-header">
+          <div class="pricing-header-icon">💰</div>
+          <div>
+            <div class="pricing-title">Paket Tersedia</div>
+            <div class="pricing-subtitle">Pilih sesuai kebutuhan Anda</div>
+          </div>
+        </div>
+        <div class="pricing-grid">
+          <div class="pricing-item">
+            <div class="pkg-name">WiFi 1</div>
+            <div class="pkg-duration">6 <span class="pkg-unit">Jam</span></div>
+            <div class="pkg-price">Rp 2.000</div>
+          </div>
+          <div class="pricing-item">
+            <div class="pkg-name">WiFi 2</div>
+            <div class="pkg-duration">1 <span class="pkg-unit">Hari</span></div>
+            <div class="pkg-price">Rp 4.000</div>
+          </div>
+          <div class="pricing-item">
+            <div class="pkg-name">WiFi 3</div>
+            <div class="pkg-duration">7 <span class="pkg-unit">Hari</span></div>
+            <div class="pkg-price">Rp 20.000</div>
+          </div>
+          <div class="pricing-item">
+            <div class="pkg-name">WiFi 4</div>
+            <div class="pkg-duration">30 <span class="pkg-unit">Hari</span></div>
+            <div class="pkg-price">Rp 50.000</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-info">
+        <div class="info-row">
+          <span class="info-row-icon">📍</span>
+          <span>Atau beli langsung di <strong>Rumah ARIF</strong> — Depan Masjid Nurul Huda</span>
+        </div>
+        <div class="info-row">
+          <span class="info-row-icon">💬</span>
+          <span>Info &amp; pembelian via WhatsApp: <a href="https://wa.me/6285725300663">0857-2530-0663</a></span>
+        </div>
+      </div>
+
+      <div class="footer">
+        Copyright &copy; 2026 &nbsp;|&nbsp; Powered by
+        <a href="https://nunbisnis.vercel.app/">ARIF CELL / NUN BISNIS</a>
+      </div>
+
+    </div>
+
+    <script type="text/javascript">
+      var hostname = window.location.hostname;
+      document.getElementById('title').innerHTML = hostname + " > login";
+
+      document.login.username.focus();
+
+      var username = document.login.username;
+      var password = document.login.password;
+      var fieldPassword = document.getElementById('field-password');
+      var lblUsername = document.getElementById('lbl-username');
+      var btnvrc = document.getElementById('btnvrc');
+      var btnmem = document.getElementById('btnmem');
+
+      function setpass() {
+        var user = username.value;
+        username.value = user;
+        password.value = user;
+      }
+
+      username.onkeyup = setpass;
+
+      function voucher() {
+        username.focus();
+        username.onkeyup = setpass;
+        username.placeholder = "Masukkan kode voucher";
+        password.type = "hidden";
+        fieldPassword.style.display = "none";
+        lblUsername.textContent = "Kode Voucher";
+        document.getElementById('infologin').innerHTML = "Masukkan Kode Voucher kemudian klik login.";
+        btnvrc.classList.add('active');
+        btnmem.classList.remove('active');
+      }
+
+      function member() {
+        username.focus();
+        username.onkeyup = "";
+        username.placeholder = "Masukkan username";
+        password.type = "password";
+        fieldPassword.style.display = "flex";
+        lblUsername.textContent = "Username";
+        document.getElementById('infologin').innerHTML = "Masukkan Username dan Password kemudian klik login.";
+        btnmem.classList.add('active');
+        btnvrc.classList.remove('active');
+      }
+    </script>
+
+  </body>
+</html>

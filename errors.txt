@@ -1,0 +1,11 @@
+# Error Messages (Indonesian)
+
+user-not-found=Pengguna tidak ditemukan
+invalid-password=Password salah
+user-disabled=Pengguna dinonaktifkan
+user-expired=Masa aktif pengguna telah habis
+user-no-hours=Pengguna tidak memiliki jam tersisa
+user-no-bytes=Pengguna tidak memiliki quota tersisa
+simultaneous-users=Akun sedang digunakan di tempat lain
+session-expired=Sesi telah berakhir
+system-busy=Server sedang sibuk, coba lagi nanti
