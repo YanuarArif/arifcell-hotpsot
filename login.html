@@ -89,6 +89,33 @@
         overflow: hidden;
       }
 
+      .marquee {
+        background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+        border-radius: 10px;
+        padding: 10px 16px;
+        overflow: hidden;
+        position: relative;
+        box-shadow: 0 2px 12px rgba(251,191,36,0.3);
+      }
+
+      .marquee-content {
+        display: inline-block;
+        white-space: nowrap;
+        animation: scroll 20s linear infinite;
+        color: #000;
+        font-size: 13px;
+        font-weight: 600;
+      }
+
+      .marquee-content::after {
+        content: " 🎁 Promo Spesial Arif Cell — Gratis Voucher WiFi 2 Jam Unlimited! Cukup beli pulsa nominal berapapun, voucher langsung kamu dapatkan. 🎁 Promo Spesial Arif Cell — Gratis Voucher WiFi 2 Jam Unlimited! Cukup beli pulsa nominal berapapun, voucher langsung kamu dapatkan. ";
+      }
+
+      @keyframes scroll {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-50%); }
+      }
+
       .card-brand::before {
         content: '';
         position: absolute;
@@ -444,11 +471,16 @@
         font-size: 11px;
         color: rgba(125,184,212,0.4);
         padding-bottom: 4px;
-        line-height: 1.6;
+        line-height: 1.8;
       }
 
       .footer a {
-        color: rgba(125,184,212,0.6);
+        color: var(--sky);
+        text-decoration: none;
+        font-weight: 600;
+      }
+
+      .footer a:hover {
         text-decoration: underline;
       }
 
@@ -483,6 +515,12 @@
     $(endif)
 
     <div class="wrapper">
+
+      <div class="marquee">
+        <div class="marquee-content">
+          🎁 Promo Spesial Arif Cell — Gratis Voucher WiFi 2 Jam Unlimited! Cukup beli pulsa nominal berapapun, voucher langsung kamu dapatkan.
+        </div>
+      </div>
 
       <div class="card-brand">
         <div class="wifi-icon">📶</div>
@@ -600,7 +638,8 @@
       </div>
 
       <div class="footer">
-        Template by <strong>Yanuar Lukman Arif</strong> &bull; 7 Mei 2026
+        Template by <strong>Yanuar Lukman Arif</strong> &bull; 7 Mei 2026<br>
+        Didukung oleh <a href="https://nunbisnis.vercel.app/" target="_blank">NunBisnis</a>
       </div>
 
     </div>
